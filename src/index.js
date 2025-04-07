@@ -9,6 +9,9 @@ import mongoose from "mongoose";
 import { DB_NAME } from "./constants.js";
 import express from "express";
 import connectToDB from './db/index.js';
+import { app } from './App.js';
+
+// const app=express();
 
 // const app = express();
 
@@ -32,5 +35,13 @@ import connectToDB from './db/index.js';
 //     }
 // };
 
-// // Call the function to start the server
-connectToDB();
+// // Call the function to start the server and its returns a promise 
+connectToDB().then(()=>{
+    app.listen(process.env.PORT || 8000,()=>{
+        console.log(`Server is started and running on ${process.env.PORT}`)
+    })
+}).catch((err)=>{
+    console.log("Server connection failed!!!",err);
+    process.exit(1);
+
+});
