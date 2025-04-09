@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 import { DB_NAME } from "./constants.js";
 import express from "express";
 import connectToDB from './db/index.js';
-import { app } from './App.js';
+import { app } from './app.js';
 
 // const app=express();
 
@@ -36,7 +36,8 @@ import { app } from './App.js';
 // };
 
 // // Call the function to start the server and its returns a promise 
-connectToDB().then(()=>{
+connectToDB()
+.then(()=>{
     app.listen(process.env.PORT || 8000,()=>{
         console.log(`Server is started and running on ${process.env.PORT}`)
     })

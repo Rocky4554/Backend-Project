@@ -54,10 +54,10 @@ const UserSchema = new Schema(
 
 UserSchema.pre("save", async function (next) {
   // this "pre" is a hooks from mongoose which is used to perform some action before saving the data in the database
-  if (!isModified("password")) return next();
-  if (this.password.length < 6)
-    throw new Error("Password should be atleast 6 characters long");
-  this.password = bcrypt.hash(this.password, 10);
+  if (!this.isModified("password")) return next();
+  // if (this.password.length < 6)
+  //   throw new Error("Password should be atleast 6 characters long");
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
